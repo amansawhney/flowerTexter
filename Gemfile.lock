@@ -2,8 +2,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     dotenv (2.5.0)
-    dotenv-heroku (0.0.1)
-      rake
     et-orbi (1.1.5)
       tzinfo
     faraday (0.15.2)
@@ -17,7 +15,6 @@ GEM
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     raabro (1.1.6)
-    rake (12.3.1)
     rufus-scheduler (3.5.2)
       fugit (~> 1.1, >= 1.1.5)
     thread_safe (0.3.6)
@@ -33,7 +30,6 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
-  dotenv-heroku
   rufus-scheduler
   twilio-ruby (~> 5.12.3)
 

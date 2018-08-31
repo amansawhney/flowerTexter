@@ -16,11 +16,16 @@ def runner
       to: ENV['AMAN_NUMBER'],
       body: "Your flower of the day is ... "  + flowers.sample
   )
+  @client.api.account.messages.create(
+      from: ENV['TWILIO_NUMBER'],
+      to: ENV['ERIN_NUMBER'],
+      body: "Your flower of the day is ... "  + flowers.sample
+  )
 end
 
 scheduler = Rufus::Scheduler.new
 
-scheduler.every '5s' do
+scheduler.cron '00 01 * * *', :first => :now  do
   runner()
 end
 
