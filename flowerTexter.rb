@@ -2,31 +2,32 @@ require 'twilio-ruby'
 require 'rufus-scheduler'
 require 'dotenv/load'
 
-def runner
+def texter(array, thing)
   account_sid = ENV["TWILIO_SID"]
   auth_token = ENV["TWILIO_TOKEN"]
 
-  flowers = ["🌷", "🌸", "🌹", "🌺", "🌻", "	🌼", "	💐", "💮"]
 
   # set up a client to talk to the Twilio REST API
   @client = Twilio::REST::Client.new account_sid, auth_token
 
-  @client.api.account.messages.create(
+  numbers = [ENV['AMAN_NUMBER'], ENV['ERIN_NUMBER']]
+
+  numbers.each do |number|
+    @client.api.account.messages.create(
       from: ENV['TWILIO_NUMBER'],
-      to: ENV['AMAN_NUMBER'],
-      body: "Your flower of the day is ... "  + flowers.sample
-  )
-  @client.api.account.messages.create(
-      from: ENV['TWILIO_NUMBER'],
-      to: ENV['ERIN_NUMBER'],
-      body: "Your flower of the day is ... "  + flowers.sample
-  )
+      to: number,
+      body: "Your " + thing + " of the day is ... " + array.sample
+      )
+  end
 end
+
 
 scheduler = Rufus::Scheduler.new
 
-scheduler.cron '00 01 * * *', :first => :now  do
-  runner()
+scheduler.cron '00 01 * * *', :first => :now do
+  texter(["🌷", "🌸", "🌹", "🌺", "🌻", " 🌼", "  💐", "💮"], "flowers")
 end
+
+
 
 scheduler.join
